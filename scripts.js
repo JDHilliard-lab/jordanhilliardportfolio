@@ -1,34 +1,29 @@
 // script.js
 document.addEventListener("DOMContentLoaded", () => {
-    
-    // Initialize GSAP ScrollTrigger
     gsap.registerPlugin(ScrollTrigger);
 
-    // 1. Auto-Reveal Elements
-    // Any element with the class 'reveal' will animate in automatically
+    // Animate every element with the 'reveal' class
     const reveals = document.querySelectorAll('.reveal');
-    reveals.forEach((el) => {
+    
+    reveals.forEach((el, index) => {
         gsap.to(el, {
             scrollTrigger: {
                 trigger: el,
-                start: "top 85%",
-                toggleActions: "play none none reverse"
+                start: "top 90%", // Starts when 90% of the viewport is reached
+                toggleActions: "play none none none"
             },
             opacity: 1,
             y: 0,
-            duration: 1.2,
+            duration: 1.5,
+            delay: index * 0.1, // Stagger effect
             ease: "power4.out"
         });
     });
 
-    // 2. Global Hover Sound or Haptic (Optional/Future-proof)
-    console.log("Jordan Hilliard Portfolio Engine Active");
-
-    // 3. Image Parallax (Universal)
-    // Any image with class 'parallax' will move slightly on scroll
+    // Parallax effect for project images
     gsap.utils.toArray(".parallax").forEach(img => {
         gsap.to(img, {
-            yPercent: -20,
+            yPercent: 15,
             ease: "none",
             scrollTrigger: {
                 trigger: img,
