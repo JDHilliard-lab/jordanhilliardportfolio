@@ -1,0 +1,62 @@
+/* style.css */
+:root {
+    --bg: #050505;
+    --text: #ffffff;
+    --accent: #3b82f6; /* Global accent color */
+    --zinc-border: rgba(255, 255, 255, 0.1);
+    --font-main: 'Inter', sans-serif;
+    --transition-smooth: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+}
+
+/* Global Container */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Reusable Project Hero (Used in Ford, Hotel Arts, etc.) */
+.project-header {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: clamp(3rem, 10vw, 8rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    font-style: italic;
+    line-height: 0.9;
+}
+
+/* The Grid System (Bento Logic) */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+}
+
+/* Global Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: var(--transition-smooth);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
