@@ -2,31 +2,40 @@
 :root {
     --bg: #050505;
     --text: #ffffff;
-    --accent: #3b82f6; /* Global accent color */
-    --zinc-border: rgba(255, 255, 255, 0.1);
-    --font-main: 'Inter', sans-serif;
-    --transition-smooth: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    --accent: #3b82f6;
+    --zinc: #18181b;
+    --transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
 body {
-    background-color: var(--bg);
+    background: var(--bg);
     color: var(--text);
-    font-family: var(--font-main);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
     overflow-x: hidden;
 }
 
-/* Global Container */
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 2rem;
+/* Nav Styles */
+.nav-container {
+    position: fixed;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+    mix-blend-difference: exclusion;
 }
 
-/* Reusable Project Hero (Used in Ford, Hotel Arts, etc.) */
-.project-header {
-    height: 80vh;
+.nav-logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -2px; }
+.nav-links a { 
+    color: white; text-decoration: none; 
+    text-transform: uppercase; font-size: 0.75rem; 
+    letter-spacing: 0.2rem; margin-left: 2rem;
+}
+
+/* Hero Styles */
+.hero {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -34,29 +43,58 @@ body {
     text-align: center;
 }
 
-.hero-title {
-    font-size: clamp(3rem, 10vw, 8rem);
+#hero-title {
+    font-size: 12vw;
     font-weight: 900;
-    text-transform: uppercase;
+    line-height: 0.85;
     font-style: italic;
-    line-height: 0.9;
+    margin-bottom: 2rem;
 }
 
-/* The Grid System (Bento Logic) */
+.subtitle { color: #71717a; font-size: 0.75rem; letter-spacing: 0.4rem; text-transform: uppercase; }
+
+/* Grid Styles */
+.container { max-width: 1400px; margin: 0 auto; padding: 4rem 2rem; }
+
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     gap: 1.5rem;
 }
 
-/* Global Animations */
-.reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: var(--transition-smooth);
+.project-card {
+    position: relative;
+    border-radius: 30px;
+    overflow: hidden;
+    background: var(--zinc);
+    text-decoration: none;
+    color: white;
 }
 
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
+.project-card.large { grid-column: span 8; height: 600px; }
+.project-card.medium { grid-column: span 4; height: 600px; }
+
+/* Stack for Mobile */
+@media (max-width: 768px) {
+    .project-card.large, .project-card.medium { grid-column: span 12; height: 400px; }
 }
+
+.project-card img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: var(--transition);
+    filter: grayscale(100%);
+}
+
+.project-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
+
+.card-content {
+    position: absolute; bottom: 2rem; left: 2rem;
+}
+
+.tag { color: var(--accent); font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1rem; }
+.project-title { font-size: 2.5rem; font-weight: 900; font-style: italic; text-transform: uppercase; }
+
+/* Animation Classes */
+.reveal { opacity: 0; transform: translateY(50px); }
+
+.footer { padding: 5rem 0; text-align: center; color: #3f3f46; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.2rem; }
