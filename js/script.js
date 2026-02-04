@@ -1,23 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Global Scroll Reveal
-    gsap.utils.toArray('.reveal').forEach((el, index) => {
-        gsap.to(el, {
-            scrollTrigger: {
-                trigger: el,
-                start: "top 90%",
-                toggleActions: "play none none none"
-            },
-            opacity: 1,
-            y: 0,
-            duration: 1.5,
-            delay: index * 0.05,
-            ease: "power4.out"
-        });
+    // ALT-Style staggered entrance
+    gsap.from('.reveal', {
+        opacity: 0,
+        y: 60,
+        duration: 1.8,
+        stagger: 0.2,
+        ease: "power4.out",
+        scrollTrigger: {
+            trigger: ".reveal",
+            start: "top 85%",
+        }
     });
 
-    // Mobile Center-Activation
+    // Mobile activation (grayscale to color)
     const cards = document.querySelectorAll('.project-card');
     cards.forEach((card) => {
         ScrollTrigger.create({
@@ -28,15 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
             onLeave: () => card.classList.remove('mobile-active'),
             onEnterBack: () => card.classList.add('mobile-active'),
             onLeaveBack: () => card.classList.remove('mobile-active'),
-        });
-    });
-
-    // Parallax
-    gsap.utils.toArray(".parallax").forEach(img => {
-        gsap.to(img, {
-            yPercent: 15,
-            ease: "none",
-            scrollTrigger: { trigger: img, scrub: true }
         });
     });
 });
