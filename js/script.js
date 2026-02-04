@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Fade-in animation for all elements with class 'reveal'
-    const reveals = document.querySelectorAll('.reveal');
-    reveals.forEach((el, index) => {
+    // Global Scroll Reveal
+    gsap.utils.toArray('.reveal').forEach((el, index) => {
         gsap.to(el, {
             scrollTrigger: {
                 trigger: el,
@@ -12,13 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             opacity: 1,
             y: 0,
-            duration: 1.2,
+            duration: 1.5,
             delay: index * 0.05,
-            ease: "power3.out"
+            ease: "power4.out"
         });
     });
 
-    // MOBILE DYNAMIC RESPONSE (Lights up cards as they center in view)
+    // Mobile Center-Activation
     const cards = document.querySelectorAll('.project-card');
     cards.forEach((card) => {
         ScrollTrigger.create({
@@ -32,15 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Parallax effect for images with class 'parallax'
+    // Parallax
     gsap.utils.toArray(".parallax").forEach(img => {
         gsap.to(img, {
             yPercent: 15,
             ease: "none",
-            scrollTrigger: {
-                trigger: img,
-                scrub: true
-            }
+            scrollTrigger: { trigger: img, scrub: true }
         });
     });
 });
