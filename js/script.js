@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Fade-in animation for all elements
+    // Fade-in animation for all elements with class 'reveal'
     const reveals = document.querySelectorAll('.reveal');
     reveals.forEach((el, index) => {
         gsap.to(el, {
@@ -18,8 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // MOBILE DYNAMIC RESPONSE
-    // As you scroll, the card in the center of the screen "lights up"
+    // MOBILE DYNAMIC RESPONSE (Lights up cards as they center in view)
     const cards = document.querySelectorAll('.project-card');
     cards.forEach((card) => {
         ScrollTrigger.create({
