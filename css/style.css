@@ -1,60 +1,68 @@
-/* ... existing root and basic styles from previous steps ... */
-
-.project-card {
-    position: relative;
-    border-radius: 2rem;
-    overflow: hidden;
-    background: #111;
-    text-decoration: none;
-    color: white;
-    transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.6s ease;
+:root {
+    --bg: #050505;
+    --text: #ffffff;
+    --accent: #3b82f6;
+    --zinc: #18181b;
+    --zinc-border: #27272a;
+    --transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
-/* DESKTOP HOVER */
-@media (min-width: 1024px) {
-    .project-card:hover {
-        transform: translateY(-10px) scale(1.02);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-        z-index: 10;
-    }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-    .project-card img {
-        width: 100%; height: 100%; object-fit: cover;
-        transition: filter 0.8s ease, transform 0.8s ease;
-        filter: grayscale(100%) brightness(0.6);
-    }
-
-    .project-card:hover img {
-        filter: grayscale(0%) brightness(1);
-        transform: scale(1.1);
-    }
+/* Navigation */
+.nav-container {
+    position: fixed; width: 100%; padding: 2rem;
+    display: flex; justify-content: space-between; z-index: 100;
+    mix-blend-difference: exclusion;
+}
+.nav-logo { font-weight: 900; font-size: 1.5rem; letter-spacing: -2px; color: white; text-decoration: none; }
+.nav-links a, .nav-links .subtitle { 
+    color: white; text-decoration: none; text-transform: uppercase; 
+    font-size: 0.7rem; letter-spacing: 0.2rem; margin-left: 2rem; 
 }
 
-/* MOBILE DYNAMIC CENTER-VIEW RESPONSE */
+/* Hero */
+.hero { position: relative; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.video-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+.hero-video { width: 100%; height: 100%; object-fit: cover; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,5,5,0.2), rgba(5,5,5,0.8)); z-index: 1; }
+.hero-content { position: relative; z-index: 2; text-align: center; }
+.hero-title { font-size: 12vw; font-weight: 900; line-height: 0.85; font-style: italic; margin-bottom: 1.5rem; text-transform: uppercase; }
+#hero-title { font-size: 12vw; }
+.subtitle { color: #a1a1aa; font-size: 0.75rem; letter-spacing: 0.4rem; text-transform: uppercase; }
+
+/* Grid & Layout */
+.container { max-width: 1400px; margin: 0 auto; padding: 6rem 2rem; }
+.grid { display: grid; }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.gap-8 { gap: 2rem; }
+.py-10 { padding: 2.5rem 0; }
+.border-t { border-top: 1px solid var(--zinc-border); }
+.border-b { border-bottom: 1px solid var(--zinc-border); }
+
+.bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+.project-card { position: relative; border-radius: 2rem; overflow: hidden; background: var(--zinc); text-decoration: none; color: white; transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1); }
+.project-card.large { grid-column: span 8; height: 600px; }
+.project-card.medium { grid-column: span 4; height: 600px; }
+
 @media (max-width: 1023px) {
-    .project-card img {
-        filter: grayscale(100%) brightness(0.5);
-        transition: filter 0.5s ease;
-    }
-
-    /* When the JS detects the card is in the center, it adds this class */
-    .project-card.mobile-active img {
-        filter: grayscale(0%) brightness(1);
-    }
-    
-    .project-card.mobile-active {
-        transform: scale(1.02);
-    }
+    .project-card.large, .project-card.medium { grid-column: span 12; height: 450px; }
+    .grid-cols-2 { grid-template-columns: 1fr; }
+    .hero-title { font-size: 18vw; }
 }
 
-.card-content {
-    position: absolute;
-    bottom: 2rem;
-    left: 2rem;
-    z-index: 5;
-    transition: transform 0.5s ease;
+@media (min-width: 768px) {
+    .md\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
 }
 
-.project-card:hover .card-content {
-    transform: translateY(-5px);
-}test
+/* Card Interaction */
+.project-card img { width: 100%; height: 100%; object-fit: cover; transition: filter 0.8s ease, transform 0.8s ease; filter: grayscale(100%) brightness(0.6); }
+.project-card:hover img, .project-card.mobile-active img { filter: grayscale(0%) brightness(1); transform: scale(1.05); }
+.card-content { position: absolute; bottom: 2rem; left: 2rem; z-index: 5; }
+.tag { color: var(--accent); font-size: 0.7rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1rem; }
+.project-title { font-size: 2.5rem; font-weight: 900; font-style: italic; text-transform: uppercase; }
+
+/* Animations */
+.reveal { opacity: 0; transform: translateY(50px); }
+.footer { padding: 8rem 0; text-align: center; color: #3f3f46; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.2rem; }
