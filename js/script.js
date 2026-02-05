@@ -1,30 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
-    gsap.registerPlugin(ScrollTrigger);
+    // 1. Check if GSAP is loaded
+    if (typeof gsap !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
 
-    // ALT-Style staggered entrance
-    gsap.from('.reveal', {
-        opacity: 0,
-        y: 60,
-        duration: 1.8,
-        stagger: 0.2,
-        ease: "power4.out",
-        scrollTrigger: {
-            trigger: ".reveal",
-            start: "top 85%",
-        }
-    });
-
-    // Mobile activation (grayscale to color)
-    const cards = document.querySelectorAll('.project-card');
-    cards.forEach((card) => {
-        ScrollTrigger.create({
-            trigger: card,
-            start: "top center",
-            end: "bottom center",
-            onEnter: () => card.classList.add('mobile-active'),
-            onLeave: () => card.classList.remove('mobile-active'),
-            onEnterBack: () => card.classList.add('mobile-active'),
-            onLeaveBack: () => card.classList.remove('mobile-active'),
+        // 2. Global Scroll Reveal
+        // This ensures that even if ScrollTrigger fails, the content is visible
+        const reveals = document.querySelectorAll('.reveal');
+        
+        reveals.forEach((el) => {
+            gsap.to(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+                ease: "power4.out"
+            });
         });
-    });
+
+        // 3. Parallax
+        gsap.utils.toArray(".parallax").forEach(img => {
+            gsap.to(img, {
+                yPercent: 15,
+                ease: "none",
+                scrollTrigger: { trigger: img, scrub: true }
+            });
+        });
+    } else {
+        // Fallback: If GSAP fails, just show everything
+        document.querySelectorAll('.reveal').forEach(el => {
+            el.style.opacity = "1";
+            el.style.transform = "none";
+        });
+    }
 });
