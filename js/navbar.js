@@ -6,11 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <a href="index.html#work">Work</a>
             <a href="mailto:jordan@jordanhilliard.com">Contact</a>
         </div>
-    </nav>
-    `;
-
+    </nav>`;
     const placeholder = document.getElementById("navbar-placeholder");
-    if (placeholder) {
-        placeholder.innerHTML = navHTML;
-    }
+    if (placeholder) { placeholder.innerHTML = navHTML; }
 });
