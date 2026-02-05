@@ -8,9 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
     </nav>
     `;
-
     const placeholder = document.getElementById("navbar-placeholder");
-    if (placeholder) {
-        placeholder.innerHTML = navHTML;
-    }
+    if (placeholder) { placeholder.innerHTML = navHTML; }
 });
