@@ -1,39 +1,30 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Check if GSAP is loaded
-    if (typeof gsap !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
 
-        // 2. Global Scroll Reveal
-        // This ensures that even if ScrollTrigger fails, the content is visible
-        const reveals = document.querySelectorAll('.reveal');
-        
-        reveals.forEach((el) => {
-            gsap.to(el, {
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 90%",
-                    toggleActions: "play none none none"
-                },
-                opacity: 1,
-                y: 0,
-                duration: 1.5,
-                ease: "power4.out"
-            });
-        });
+    // Force video play
+    const video = document.getElementById('heroVideo');
+    if (video) { video.play().catch(() => { console.log("Autoplay prevented by browser."); }); }
 
-        // 3. Parallax
-        gsap.utils.toArray(".parallax").forEach(img => {
-            gsap.to(img, {
-                yPercent: 15,
-                ease: "none",
-                scrollTrigger: { trigger: img, scrub: true }
-            });
+    // Reveal animations
+    gsap.utils.toArray('.reveal').forEach((el) => {
+        gsap.to(el, {
+            scrollTrigger: {
+                trigger: el,
+                start: "top 90%",
+            },
+            opacity: 1,
+            y: 0,
+            duration: 1.5,
+            ease: "power4.out"
         });
-    } else {
-        // Fallback: If GSAP fails, just show everything
-        document.querySelectorAll('.reveal').forEach(el => {
-            el.style.opacity = "1";
-            el.style.transform = "none";
+    });
+
+    // Parallax
+    gsap.utils.toArray(".parallax").forEach(img => {
+        gsap.to(img, {
+            yPercent: 15,
+            ease: "none",
+            scrollTrigger: { trigger: img, scrub: true }
         });
-    }
+    });
 });
